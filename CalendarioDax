@@ -1,0 +1,20 @@
+Calendario = 
+VAR RangoDeFechas =
+    CALENDAR ( DATE ( 1999, 1, 1 ), DATE ( 2021, 12, 31 ) )
+RETURN
+    GENERATE (
+        RangoDeFechas,
+        VAR FechaBase = [Date]
+        VAR YearDate = YEAR ( FechaBase )
+        VAR MonthNumber = MONTH ( FechaBase )
+        VAR YearMonthNumber = YearDate * 12 + MonthNumber - 1
+        RETURN ROW (
+            "Fecha", FechaBase,
+            "Año", YearDate,
+            "Mes Número", MonthNumber,
+            "Mes Nombre", FORMAT ( FechaBase, "mmmm" ),
+            "Trimestre", "Trim. " & FORMAT( FechaBase, "q"),
+            "DS Número", WEEKDAY(FechaBase,2),
+            "DS Nombre", FORMAT(FechaBase,"dddd")
+        )
+    )
